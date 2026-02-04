@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LinkButton from "../components/LinkButton";
 
 const routes = [
   {
@@ -28,16 +29,7 @@ const Home = () => {
   return (
     <div className="flex gap-4">
       {routes.map((route) => {
-        return (
-          <Link
-            to={route.url}
-            className="inline-block px-6 py-4 bg-black border border-solid border-black
-        rounded text-white text-xl hover:bg-transparent hover:text-black
-        duration-300 transition-all"
-          >
-            {route.label}
-          </Link>
-        );
+        return <LinkButton url={route.url} label={route.label} />;
       })}
     </div>
   );
