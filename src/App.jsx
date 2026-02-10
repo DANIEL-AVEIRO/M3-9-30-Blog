@@ -7,6 +7,7 @@ import PostUpdate from "./pages/PostUpdate";
 import PostDelete from "./pages/PostDelete";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         </Routes>
       </main>
       <Footer />
+      <ToastContainer />
     </BrowserRouter>
   );
 };
