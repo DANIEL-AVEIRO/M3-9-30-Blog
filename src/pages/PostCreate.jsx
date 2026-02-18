@@ -17,6 +17,8 @@ const PostCreate = () => {
       toast.warning("All fields are required");
       return;
     }
+    localStorage.setItem("title", title);
+    speechSynthesis.speak(new SpeechSynthesisUtterance(title));
     toast.success("Post create successfully");
     setTitle("");
     setAuthor("");
