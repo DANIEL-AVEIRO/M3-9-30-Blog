@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormGroup from "../components/FormGroup";
 import { toast } from "react-toastify";
 import LinkButton from "../components/LinkButton";
+import { useNavigate, useParams } from "react-router-dom";
+import { postDetails } from "../api/service/post";
 
 const PostUpdate = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +11,21 @@ const PostUpdate = () => {
   const [viewer, setViewer] = useState(0);
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const {id} = useParams()
+  const navigate = useNavigate()
+
+  const fetchPost = async()=>{
+    const response = await postDetails(id)
+    setTitle(response.data.title)
+    setDescription(response.data.description)
+    setAuthor(response.data.author)
+    setViewer(response.data.viewer)
+  }
+
+  useEffect(()=>{
+    fetchPost();
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();

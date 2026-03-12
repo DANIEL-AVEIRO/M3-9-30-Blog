@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import FormGroup from "../components/FormGroup";
 import LinkButton from "../components/LinkButton";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { postCreate } from "../api/service/post";
 
 const PostCreate = () => {
   const [title, setTitle] = useState("");
@@ -10,20 +12,30 @@ const PostCreate = () => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!title || !author || !viewer || !description) {
       toast.warning("All fields are required");
       return;
     }
-    localStorage.setItem("title", title);
-    speechSynthesis.speak(new SpeechSynthesisUtterance(title));
+
+    const newPost = {
+      title,
+      author,
+      viewer,
+      description,
+    };
+    await postCreate(newPost);
+
     toast.success("Post create successfully");
     setTitle("");
     setAuthor("");
     setViewer(0);
     setDescription("");
+    navigate("/post/list/");
     return;
   };
 
